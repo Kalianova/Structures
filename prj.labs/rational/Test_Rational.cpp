@@ -1,14 +1,29 @@
-#include "Rational.h"
+#include "rational.h"
 
-template<typename T> void testComputation(Rational& first, T& second);
-template<typename T> void testComparison(Rational& first, T& second);
-void testExceptions(Rational& first);
+using std::cout;
+using std::endl;
+using std::cin;
+
+void testConstructor();
+template<typename T> void testComputation(Rational first, T second);
+template<typename T> void testComparison(Rational first, T second);
+void testExceptions(Rational first);
+bool testParse(const std::string& str);
 
 int main() {
 
 	Rational r1 = Rational(1, 2);
 	Rational r2 = Rational(1, 3);
 	int i1 = 4;
+	cout << "Test parse:" << endl;
+	testParse("1 / 2");
+	testParse("1 . 2");
+	testParse("1  2");
+	cout << endl;
+
+	cout << "Test constructor: " << endl;
+	testConstructor();
+	cout << endl;
 	cout << "Test computation: " << endl;
 	testComputation(r1, r2);
 	cout << endl;
@@ -19,21 +34,48 @@ int main() {
 	testExceptions(r1);
 	return 0;
 }
+
+bool testParse(const std::string& str) {
+	using namespace std;
+	istringstream istrm(str);
+	Rational x;
+	try {
+		istrm >> x;
+		cout << "Read success: " << str << " -> " << x << endl;
+		return true;
+	}
+	catch (std::exception e) {
+		cout << "Read error: " << str << " -> " << x << endl;
+		return false;
+	}
+}
+
+
+void testConstructor() {
+	Rational first = Rational();
+	cout << "Rational()      => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	first = Rational(-2, 3);
+	cout << "Rational(-2, 3) => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	first = Rational(3, -2);
+	cout << "Rational(3, -2) => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	first = Rational(4);
+	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator()<<endl;
+
+}
+
+
 template<typename T>
-void testComputation(Rational& first, T& second) {
+void testComputation(Rational first,T second) {
+
 	cout << first << " + " << second << " = " << first + second << endl;
 	cout << first << " - " << second << " = " << first - second << endl;
 	cout << first << " * " << second << " = " << first * second << endl;
 	cout << first << " / " << second << " = " << first / second << endl;
 
-	cout << first << " += " << second << " => ";
-	cout << (first += second) << endl;
-	cout << first << " -= " << second << " => ";
-	cout << (first -= second) << endl;
-	cout << first / second << " *= " << second << " => ";
-	cout << (first *= second) << endl;
-	cout << first * second << " /= " << second << " => ";
-	cout << (first /= second) << endl;
+	cout << first << " += " << second << " => "<< (first += second) << endl;
+	cout << first << " -= " << second << " => "<< (first -= second) << endl;
+	cout << first / second << " *= " << second << " => " << (first *= second) << endl;
+	cout << first * second << " /= " << second << " => " << (first /= second) << endl;
 
 	cout << first << "++ => ";
 	cout << (first++) << endl;
@@ -41,13 +83,17 @@ void testComputation(Rational& first, T& second) {
 	cout << (first--) << endl;
 }
 template<typename T>
-void testComparison(Rational& first, T& second) {
+void testComparison(Rational first, T second) {
+
 	cout << first << " == " << second << " => " << (first == second) << endl;
 	cout << first << " != " << second << " => " << (first != second) << endl;
-	cout << first << " == " << first << " => " << (first == first)<<endl;
+	cout << first << " > " << first << " => " << (first > second) << endl;
+	cout << first << " < " << first << " => " << (first < second) << endl;
+	cout << first << " <= " << first << " => " << (first <= second) << endl;
+	cout << first << " >= " << first << " => " << (first >= second) << endl;
 }
 
-void testExceptions(Rational& first) {
+void testExceptions(Rational first) {
 	try{
 		cout << "Rational(4,0) => ";
 		Rational devZero = Rational(4, 0);
@@ -65,6 +111,9 @@ void testExceptions(Rational& first) {
 		std::cout << i.what() << std::endl;
 	}
 }
+
+
+
 
 
 

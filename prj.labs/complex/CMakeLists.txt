@@ -1,3 +1,3 @@
 cmake_minimum_required (VERSION 3.8)
 
-add_executable (complex "complex.cpp")
+add_executable (complex "complex.cpp" "test_complex.cpp" "complex.h")

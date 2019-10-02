@@ -1,4 +1,5 @@
-#include "Rational.h"
+#include "rational.h"
+
 
 Rational::Rational(int32_t num) {
 	this->num = num;
@@ -28,6 +29,12 @@ Rational Rational::operator --(int i) {
 	return *this;
 }
 
+Rational Rational::operator =(const Rational& rhs) {
+	num = rhs.Numerator();
+	denom = rhs.Denominator();
+	return *this;
+}
+
 Rational operator +(const Rational& lhs, const Rational& rhs) {
 	return { (lhs.Numerator() * rhs.Denominator() + rhs.Numerator() * lhs.Denominator()), lhs.Denominator() * rhs.Denominator() };
 }
@@ -53,6 +60,22 @@ bool operator ==(const Rational& lhs, const Rational& rhs) {
 
 bool operator !=(const Rational& lhs, const Rational& rhs) {
 	return !(lhs == rhs);
+}
+
+bool operator >(const Rational& lhs, const Rational& rhs) {
+	return lhs.Numerator() * rhs.Denominator() > lhs.Denominator() * rhs.Numerator();
+}
+
+bool operator <(const Rational& lhs, const Rational& rhs) {
+	return lhs.Numerator() * rhs.Denominator() < lhs.Denominator() * rhs.Numerator();
+}
+
+bool operator >=(const Rational& lhs, const Rational& rhs) {
+	return !(lhs < rhs);
+}
+
+bool operator <=(const Rational& lhs, const Rational& rhs) {
+	return !(lhs > rhs);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Rational& rational) {
