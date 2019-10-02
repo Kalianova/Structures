@@ -53,13 +53,13 @@ bool testParse(const std::string& str) {
 
 void testConstructor() {
 	Rational first = Rational();
-	cout << "Rational()      => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	cout << "Rational()      => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
 	first = Rational(-2, 3);
-	cout << "Rational(-2, 3) => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	cout << "Rational(-2, 3) => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
 	first = Rational(3, -2);
-	cout << "Rational(3, -2) => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator() << endl;
+	cout << "Rational(3, -2) => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
 	first = Rational(4);
-	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denumerator = " << first.Denominator()<<endl;
+	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator()<<endl;
 
 }
 
