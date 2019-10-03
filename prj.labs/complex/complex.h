@@ -1,3 +1,6 @@
+#ifndef COMPLEX_H_2019
+#define COMPLEX_H_2019
+
 #pragma once
 
 #include<sstream>
@@ -6,8 +9,6 @@ struct Complex {
 	Complex() {};
 	explicit Complex(const double real);
 	Complex(const double real, const double imaginary);
-	bool operator==(const Complex& rhs) const { return (re == rhs.re) && (im == rhs.im); }
-	bool operator!=(const Complex& rhs) const { return !operator == (rhs); }
 	Complex& operator+=(const Complex& rhs);
 	Complex& operator+=(const double rhs) { return operator+=(Complex(rhs)); }
 	Complex& operator-=(const Complex& rhs);
@@ -33,3 +34,6 @@ Complex operator *(const Complex& lhs, const Complex& rhs);
 Complex operator /(const Complex& lhs, const Complex& rhs);
 std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs);
 std::istream& operator>>(std::istream& istrm, Complex& rhs);
+
+
+#endif

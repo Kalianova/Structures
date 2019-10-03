@@ -1,8 +1,10 @@
+#ifndef RATIONAL_H_2019
+#define RATIONAL_H_2019
+
 #pragma once
 #include<iostream>
 #include<exception>
 #include<sstream>
-
 
 class Rational {
 public:
@@ -42,3 +44,5 @@ bool operator <=(const Rational& lhs, const Rational& rhs);
 std::ostream& operator<<(std::ostream& stream, const Rational& rational);
 std::istream& operator>>(std::istream& stream, Rational& rational);
 int NOD(int32_t n, int32_t d);
+
+#endif

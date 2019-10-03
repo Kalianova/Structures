@@ -7,11 +7,9 @@ using std::cin;
 void testConstructor();
 template<typename T> void testComputation(Rational first, T second);
 template<typename T> void testComparison(Rational first, T second);
-void testExceptions(Rational first);
 bool testParse(const std::string& str);
 
 int main() {
-
 	Rational r1 = Rational(1, 2);
 	Rational r2 = Rational(1, 3);
 	int i1 = 4;
@@ -20,7 +18,6 @@ int main() {
 	testParse("1 . 2");
 	testParse("1  2");
 	cout << endl;
-
 	cout << "Test constructor: " << endl;
 	testConstructor();
 	cout << endl;
@@ -29,9 +26,6 @@ int main() {
 	cout << endl;
 	cout << "Test comparison:" << endl;
 	testComparison(r1, r2);
-	cout << endl;
-	cout << "Test exceptions:" << endl;
-	testExceptions(r1);
 	return 0;
 }
 
@@ -60,6 +54,13 @@ void testConstructor() {
 	cout << "Rational(3, -2) => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
 	first = Rational(4);
 	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator()<<endl;
+	try {
+		cout << "Rational(4,0) => ";
+		Rational devZero = Rational(4, 0);
+	}
+	catch (std::invalid_argument& i) {
+		std::cout << i.what() << std::endl;
+	}
 
 }
 
@@ -71,6 +72,14 @@ void testComputation(Rational first,T second) {
 	cout << first << " - " << second << " = " << first - second << endl;
 	cout << first << " * " << second << " = " << first * second << endl;
 	cout << first << " / " << second << " = " << first / second << endl;
+	try {
+		Rational numZero = Rational(0, 3);
+		cout << first << " / " << numZero << " => ";
+		cout << first / numZero << endl;
+	}
+	catch (std::invalid_argument& i) {
+		std::cout << i.what() << std::endl;
+	}
 
 	cout << first << " += " << second << " => "<< (first += second) << endl;
 	cout << first << " -= " << second << " => "<< (first -= second) << endl;
@@ -93,24 +102,6 @@ void testComparison(Rational first, T second) {
 	cout << first << " >= " << first << " => " << (first >= second) << endl;
 }
 
-void testExceptions(Rational first) {
-	try{
-		cout << "Rational(4,0) => ";
-		Rational devZero = Rational(4, 0);
-	}
-	catch (std::invalid_argument& i) {
-		std::cout << i.what() << std::endl;
-	}
-
-	try {
-		Rational numZero = Rational(0, 3);
-		cout << first << " / " << numZero << " => ";
-		cout << first / numZero << endl;
-	}
-	catch (std::invalid_argument& i) {
-		std::cout << i.what() << std::endl;
-	}
-}
 
 
 

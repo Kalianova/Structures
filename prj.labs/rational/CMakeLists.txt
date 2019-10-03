@@ -1,3 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-add_executable (rational "rational.cpp" "test_rational.cpp" "rational.h")
+add_library(rational rational.h rational.cpp)
+
+add_executable (test_rational test_rational.cpp)
+target_link_libraries (test_rational rational)
