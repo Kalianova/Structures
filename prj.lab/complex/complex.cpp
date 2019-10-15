@@ -1,11 +1,20 @@
-#include"complex.h"
+#include<complex/complex.h>
 
+static const double eps{ 1e-7 };
 std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
 	return rhs.writeTo(ostrm);
 }
 
 std::istream& operator>>(std::istream& istrm, Complex& rhs) {
 	return rhs.readFrom(istrm);
+}
+
+bool operator==(const Complex& lhs, const Complex& rhs){
+	return (fabs(lhs.re - rhs.re) < eps) && (fabs(lhs.im - rhs.im) < eps);
+}
+
+bool operator!=(const Complex& lhs, const Complex& rhs) {
+	return !(lhs == rhs);
 }
 
 Complex::Complex(const double real)

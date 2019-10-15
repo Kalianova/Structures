@@ -1,4 +1,4 @@
-#include "rational.h"
+#include <rational/rational.h> 
 
 using std::cout;
 using std::endl;
@@ -38,7 +38,7 @@ bool testParse(const std::string& str) {
 		cout << "Read success: " << str << " -> " << x << endl;
 		return true;
 	}
-	catch (std::exception e) {
+	catch (const std::exception e) {
 		cout << "Read error: " << str << " -> " << x << endl;
 		return false;
 	}
@@ -53,17 +53,15 @@ void testConstructor() {
 	first = Rational(3, -2);
 	cout << "Rational(3, -2) => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
 	first = Rational(4);
-	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator()<<endl;
+	cout << "Rational(4)     => " << "Numerator = " << first.Numerator() << " Denominator = " << first.Denominator() << endl;
+	cout << "Rational(4, 0)  => ";
 	try {
-		cout << "Rational(4,0) => ";
 		Rational devZero = Rational(4, 0);
 	}
-	catch (std::invalid_argument& i) {
+	catch (const std::invalid_argument& i) {
 		std::cout << i.what() << std::endl;
 	}
-
 }
-
 
 template<typename T>
 void testComputation(Rational first,T second) {
@@ -77,7 +75,7 @@ void testComputation(Rational first,T second) {
 		cout << first << " / " << numZero << " => ";
 		cout << first / numZero << endl;
 	}
-	catch (std::invalid_argument& i) {
+	catch (const std::invalid_argument& i) {
 		std::cout << i.what() << std::endl;
 	}
 

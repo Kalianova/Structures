@@ -1,7 +1,9 @@
-#include"complex.h"
+#include <complex/complex.h> 
+
 #include<iostream>
 bool testParse(const std::string& str);
 void testComputation(Complex lhs, Complex rhs);
+void testComparison(Complex lhs, Complex rhs);
 
 int main() {
 	using namespace std;
@@ -12,6 +14,9 @@ int main() {
 	testParse("{8.9, 9");
 	Complex p1 = Complex(1, 2);
 	Complex p2 = Complex(2, 1);
+	cout << endl;
+	cout << "Test computation:" << endl;
+	testComputation(p1, p2);
 	cout << endl;
 	cout << "Test comparison:" << endl;
 	testComparison(p1, p2);
@@ -50,6 +55,13 @@ void testComputation(Complex lhs, Complex rhs) {
 	cout << lhs << " -= " << y << " => " << (lhs -= y) << endl;
 	cout << lhs << " *= " << y << " => " << (lhs *= y) << endl;
 	cout << lhs << " /= " << y << " => " << (lhs /= y) << endl;
+}
+
+void testComparison(Complex lhs, Complex rhs) {
+	using namespace std;
+	cout << lhs << " == " << rhs << " => " << (lhs == rhs) << endl;
+	cout << lhs << " != " << rhs << " => " << (lhs != rhs) << endl;
+	cout << rhs << " == " << rhs << " => " << (rhs == rhs) << endl;
 }
 
 
