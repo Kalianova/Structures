@@ -3,6 +3,10 @@
 
 #pragma once
 
+struct Node {
+	float val{ 0.0 };
+	Node* next{ nullptr };
+};
 
 class StackL {
 public:
@@ -16,7 +20,7 @@ public:
 	const float& top() const;
 	bool is_empty() const;
 private:
+	Node* head_;
 };
-
 
 #endif
