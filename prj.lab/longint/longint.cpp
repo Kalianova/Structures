@@ -1,4 +1,4 @@
-#include<long_int/long_int.h>
+#include<longint/longint.h>
 #include<string>
 #include<iomanip>
 #include<algorithm>
@@ -107,12 +107,29 @@ Long_int Long_int::operator-=( Long_int rhs) {
 }
 
 Long_int Long_int::operator*=(Long_int rhs) {
-
+	for (int j: rhs.ReadFrom()){
+		*this *= j;
+	}
+	if (!rhs.IsPositive()) {
+		positive = !positive;
+	}
 	return *this;
 }
 
 Long_int Long_int::operator*=(int rhs) {
-
+	if (!rhs>0) {
+		positive = !positive;
+	}
+	int64_t  temp;
+	for (int i = 0; i < data_.size(); i++)
+	{
+		temp = data_[i] + rhs + temp;
+		data_[i] = temp % base;
+		temp /= base;
+	}
+	if (temp > 0) {
+		data_.push_back(temp);
+	}
 	return *this;
 }
 
