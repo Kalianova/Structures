@@ -32,15 +32,20 @@ Rational Rational::operator --(int i) {
 Rational Rational::operator =(const Rational& rhs) {
     num = rhs.Numerator();
     denom = rhs.Denominator();
+	normalize();
     return *this;
 }
 
 Rational operator +(const Rational& lhs, const Rational& rhs) {
-    return { (lhs.Numerator() * rhs.Denominator() + rhs.Numerator() * lhs.Denominator()), lhs.Denominator() * rhs.Denominator() };
+	Rational n = lhs;
+	n += rhs;
+	return n;
 }
 
 Rational operator -(const Rational& lhs, const Rational& rhs) {
-    return { (lhs.Numerator() * rhs.Denominator() - rhs.Numerator() * lhs.Denominator()), lhs.Denominator() * rhs.Denominator() };
+	Rational n = lhs;
+	n -= rhs;
+    return n;
 }
 
 Rational operator *(const Rational& lhs, const Rational& rhs) {
@@ -51,7 +56,7 @@ Rational operator /(const Rational& lhs, const Rational& rhs) {
     if (rhs.Numerator() == 0) {
         throw std::invalid_argument("Division by zero");
     }
-    return { lhs.Numerator() * rhs.Denominator(), lhs.Denominator() * rhs.Numerator() };
+    return {lhs.Numerator() * rhs.Denominator(), lhs.Denominator() * rhs.Numerator() };
 }
 
 bool operator ==(const Rational& lhs, const Rational& rhs) {
@@ -63,12 +68,13 @@ bool operator !=(const Rational& lhs, const Rational& rhs) {
 }
 
 bool operator >(const Rational& lhs, const Rational& rhs) {
-    return lhs.Numerator() * rhs.Denominator() > lhs.Denominator() * rhs.Numerator();
+	return lhs.Numerator() * rhs.Denominator() > lhs.Denominator()* rhs.Numerator();
 }
 
 bool operator <(const Rational& lhs, const Rational& rhs) {
-    return lhs.Numerator() * rhs.Denominator() < lhs.Denominator() * rhs.Numerator();
+	return lhs.Numerator() * rhs.Denominator() < lhs.Denominator()* rhs.Numerator();
 }
+
 
 bool operator >=(const Rational& lhs, const Rational& rhs) {
     return !(lhs < rhs);
@@ -76,6 +82,12 @@ bool operator >=(const Rational& lhs, const Rational& rhs) {
 
 bool operator <=(const Rational& lhs, const Rational& rhs) {
     return !(lhs > rhs);
+}
+
+void Rational::normalize(){
+	int k = NOD(abs(num), abs(denom));
+	num /= k;
+	denom /= k;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Rational& rational) {
@@ -87,15 +99,17 @@ std::istream& operator>>(std::istream& stream, Rational& rational) {
     int denom;
     char ch;
     if (stream) {
-        stream >> num >> ch >> denom;
-        if (ch == '/') {
-            rational = Rational(num, denom);
-        }
-        else {
-            throw std::exception();
-        }
+		stream >> num;
+		if (stream.peek() == '/') {
+			stream.ignore(1);
+			if (stream.peek() >= '0' && stream.peek() <= '9') {
+				stream >> denom;
+				rational = Rational(num, denom);
+				return stream;
+			}
+		}
     }
-    return stream;
+	stream.setstate(std::ios::failbit);
 }
 
 int NOD(int32_t n, int32_t d) {
@@ -110,22 +124,32 @@ int NOD(int32_t n, int32_t d) {
     return (n + d);
 }
 
-Rational Rational::operator +=(const Rational& rhs) {
-    *this = Rational(num, denom) + rhs;
+Rational operator-(const Rational& rhs) {
+	return rhs*Rational(-1);
+}
+
+Rational& Rational::operator +=(const Rational& rhs) {
+	num = num * rhs.Denominator() + rhs.Numerator() * denom;
+	denom = denom * rhs.Denominator();
+	normalize();
     return *this;
 }
 
-Rational Rational::operator -=(const Rational& rhs) {
-    *this = Rational(num, denom) - rhs;
+Rational& Rational::operator -=(const Rational& rhs) {
+	num = num * rhs.Denominator() - rhs.Numerator() * denom;
+	denom = denom * rhs.Denominator();
+	normalize();
+	return *this;
+}
+
+Rational& Rational::operator *=(const Rational& rhs) {
+    *this = *this * rhs;
+	normalize();
     return *this;
 }
 
-Rational Rational::operator *=(const Rational& rhs) {
-    *this = Rational(num, denom) * rhs;
-    return *this;
-}
-
-Rational Rational::operator /=(const Rational& rhs) {
-    *this = Rational(num, denom) / rhs;
+Rational& Rational::operator /=(const Rational& rhs) {
+    *this = *this / rhs;
+	normalize();
     return *this;
 }
