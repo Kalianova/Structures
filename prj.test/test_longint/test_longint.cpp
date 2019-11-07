@@ -1,29 +1,29 @@
-#include<long_int/long_int.h>
+#include<longint/longint.h>
 
 int main() {
 	std::string s = "27398728524058023492309482309";
-	Long_int long_int1;
-	Long_int long_int2;
-	std::cin >> long_int1;
-	std::cin >> long_int2;
+	LongInt LongInt1;
+	LongInt LongInt2;
+	std::cin >> LongInt1;
+	std::cin >> LongInt2;
 	TestParse(s);
-	TestAdd(long_int1, long_int2);
-	TestSubstract(long_int1, long_int2);
-	TestMultiply(long_int1, long_int2);
+	TestAdd(LongInt1, LongInt2);
+	TestSubstract(LongInt1, LongInt2);
+	TestMultiply(LongInt1, LongInt2);
 }
 
 void TestParse(const std::string& str) {
 
 }
  
-void TestAdd(Long_int& lhs, Long_int& rhs) {
+void TestAdd(LongInt& lhs, LongInt& rhs) {
 
 }
 
-void TestSubstract(Long_int& lhs, Long_int& rhs) {
+void TestSubstract(LongInt& lhs, LongInt& rhs) {
 
 }
 
-void TestMultiply(Long_int& lhs, Long_int& rhs) {
+void TestMultiply(LongInt& lhs, LongInt& rhs) {
 
 }

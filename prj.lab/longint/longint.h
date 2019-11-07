@@ -1,5 +1,5 @@
-#ifndef LONG_INT_H_2019
-#define LONG_INT_H_2019
+#ifndef LongInt_H_2019
+#define LongInt_H_2019
 
 #pragma once
 #include<iostream>
@@ -7,36 +7,42 @@
 #include<sstream>
 #include<vector>
 
-class Long_int {
+class LongInt {
 public:
-	Long_int() {};
+	LongInt() = default;
 
-	Long_int(std::vector<uint32_t>& data_) {
-		data_ = data_;
-	}
+	LongInt(const LongInt& Data_);
 
-	Long_int(std::vector<uint32_t>& data_, bool Positive) {
-		data_ = data_;
-		Positive = positive;
-	}
+	LongInt(const std::vector<uint32_t>& Data_);
 
+	LongInt(const std::vector<uint32_t>& Data_, bool Positive);
+
+	~LongInt();
+
+
+	void operator=(LongInt LongInt);
+	LongInt operator+=(LongInt rhs);
+	LongInt operator-=(LongInt rhs);
+	LongInt operator*=(LongInt rhs);
+	LongInt operator*=(int rhs);
+	bool IsPositive() const;
 	std::vector<uint32_t> ReadFrom()const;
 	uint32_t ReadFrom(int i)const;
-	void operator=(Long_int long_int);
-	Long_int operator+=(Long_int rhs);
-	Long_int operator-=(Long_int rhs);
-	Long_int operator*=(Long_int rhs);
-	Long_int operator*=(int rhs);
-	bool IsPositive() const;
+	bool operator == (const LongInt& rhs);
+	bool operator != (const LongInt& rhs);
+	bool operator > (const LongInt& rhs);
+	bool operator >= (const LongInt& rhs);
+	bool operator < (const LongInt& rhs);
+	bool operator <= (const LongInt& rhs);
 private:
 	const int base = 1000000000;
 	std::vector<uint32_t> data_;
 	bool positive{ true };
 };
-std::istream& operator>>(std::istream& stream, Long_int& long_int);
-std::ostream& operator<<(std::ostream& stream, const Long_int& long_int);
-Long_int operator+(Long_int& lhs, Long_int& rhs);
-Long_int operator-(Long_int& lhs, Long_int& rhs);
-Long_int operator*(Long_int& lhs, Long_int& rhs);
+std::istream& operator>>(std::istream& stream, LongInt& LongInt);
+std::ostream& operator<<(std::ostream& stream, const LongInt& LongInt);
+LongInt operator+(LongInt& lhs, LongInt& rhs);
+LongInt operator-(LongInt& lhs, LongInt& rhs);
+LongInt operator*(LongInt& lhs, LongInt& rhs);
 
 #endif

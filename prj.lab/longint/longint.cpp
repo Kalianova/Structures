@@ -3,23 +3,62 @@
 #include<iomanip>
 #include<algorithm>
 
-void Long_int::operator=(Long_int long_int) {
-	data_ = long_int.ReadFrom();
+LongInt::LongInt(const LongInt& Data_) :
+	data_(Data_.data_),
+	positive(Data_.positive)
+{}
+
+LongInt::LongInt(const std::vector<uint32_t>& Data_) :
+	data_(Data_) 
+{}
+
+
+LongInt::LongInt(const std::vector<uint32_t>& Data_, bool Positive) :
+	data_(Data_),
+	positive(Positive)
+{}
+
+LongInt::~LongInt() {
+	delete &data_;
+	delete &positive;
 }
 
-std::vector<uint32_t> Long_int::ReadFrom() const{
+bool LongInt::operator == (const LongInt& rhs) {
+	
+}
+bool LongInt::operator != (const LongInt& rhs) {
+	return !(*this == rhs);
+}
+bool LongInt::operator < (const LongInt& rhs) {
+
+}
+bool LongInt::operator <= (const LongInt& rhs) {
+	return !(*this > rhs);
+}
+bool LongInt::operator > (const LongInt& rhs) {
+
+}
+bool LongInt::operator >= (const LongInt& rhs) {
+	return !(*this < rhs);
+}
+
+void LongInt::operator=(LongInt LongInt) {
+	data_ = LongInt.ReadFrom();
+}
+
+std::vector<uint32_t> LongInt::ReadFrom() const{
 	return data_;
 }
 
-uint32_t Long_int::ReadFrom(int i)const {
+uint32_t LongInt::ReadFrom(int i)const {
 	return data_[i];
 }
 
-bool Long_int::IsPositive() const {
+bool LongInt::IsPositive() const {
 	return positive;
 }
 
-std::istream& operator>>(std::istream& stream, Long_int& long_int) {
+std::istream& operator>>(std::istream& stream, LongInt& longint) {
 	std::string s;
 	stream >> s;
 	std::vector<uint32_t> v;
@@ -31,26 +70,26 @@ std::istream& operator>>(std::istream& stream, Long_int& long_int) {
 			v.push_back(stoi(s.substr(0, i)));
 		}
 	}
-	long_int = Long_int(v);
+	longint = LongInt(v);
 	return stream;
 }
 
-std::ostream& operator<<(std::ostream& stream, const Long_int& long_int) {
+std::ostream& operator<<(std::ostream& stream, const LongInt& LongInt) {
 	std::string a;
 	bool first = true;
-	for (int i = (int)long_int.ReadFrom().size() - 1; i >= 0; --i) {
+	for (int i = (int)LongInt.ReadFrom().size() - 1; i >= 0; --i) {
 		if (first) {
-			stream << long_int.ReadFrom(i);
+			stream << LongInt.ReadFrom(i);
 			first = false;
 		}
 		else {
-			stream << std::setfill('0') << std::setw(9) << long_int.ReadFrom(i);
+			stream << std::setfill('0') << std::setw(9) << LongInt.ReadFrom(i);
 		}
 	}
 	return stream;
 }
 
-Long_int Long_int::operator+=(Long_int rhs) {
+LongInt LongInt::operator+=(LongInt rhs) {
 	if (positive && !rhs.IsPositive()) {
 		positive = !positive;
 		rhs -= *this; // (first + (-second)) = -((-first) + second) = -(second - first)
@@ -76,7 +115,7 @@ Long_int Long_int::operator+=(Long_int rhs) {
 	return *this;
 }
 
-Long_int Long_int::operator-=( Long_int rhs) {
+LongInt LongInt::operator-=( LongInt rhs) {
 	if (positive && !rhs.IsPositive()|| !positive && rhs.IsPositive()) {
 		positive = !positive;
 		*this += rhs;
@@ -106,7 +145,7 @@ Long_int Long_int::operator-=( Long_int rhs) {
 	return *this;
 }
 
-Long_int Long_int::operator*=(Long_int rhs) {
+LongInt LongInt::operator*=(LongInt rhs) {
 	for (int j: rhs.ReadFrom()){
 		*this *= j;
 	}
@@ -116,7 +155,7 @@ Long_int Long_int::operator*=(Long_int rhs) {
 	return *this;
 }
 
-Long_int Long_int::operator*=(int rhs) {
+LongInt LongInt::operator*=(int rhs) {
 	if (!rhs>0) {
 		positive = !positive;
 	}
@@ -133,14 +172,14 @@ Long_int Long_int::operator*=(int rhs) {
 	return *this;
 }
 
-Long_int operator+(Long_int& lhs, Long_int& rhs) {
-	return (Long_int(lhs) += rhs);
+LongInt operator+(LongInt& lhs, LongInt& rhs) {
+	return (LongInt(lhs) += rhs);
 }
 
-Long_int operator-(Long_int& lhs, Long_int& rhs) {
-	return (Long_int(lhs) -= rhs);
+LongInt operator-(LongInt& lhs, LongInt& rhs) {
+	return (LongInt(lhs) -= rhs);
 }
 
-Long_int operator*(Long_int& lhs, Long_int& rhs) {
-	return (Long_int(lhs) *= rhs);
+LongInt operator*(LongInt& lhs, LongInt& rhs) {
+	return (LongInt(lhs) *= rhs);
 }

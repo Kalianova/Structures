@@ -1,6 +1,8 @@
 #include<complex/complex.h>
+#include <limits>
 
-static const double eps{ 1e-7 };
+constexpr double eps = 2 * std::numeric_limits<double>::epsilon();
+
 std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
 	return rhs.writeTo(ostrm);
 }
