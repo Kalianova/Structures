@@ -9,6 +9,7 @@ struct Complex {
 	Complex() {};
 	explicit Complex(const double real);
 	Complex(const double real, const double imaginary);
+	Complex operator-() const { return Complex(-re, -im); }
 	Complex& operator+=(const Complex& rhs);
 	Complex& operator+=(const double rhs) { return operator+=(Complex(rhs)); }
 	Complex& operator-=(const Complex& rhs);
@@ -29,10 +30,21 @@ struct Complex {
 
 };
 
-Complex operator +(const Complex& lhs, const Complex& rhs);
-Complex operator -(const Complex& lhs, const Complex& rhs);
-Complex operator *(const Complex& lhs, const Complex& rhs);
-Complex operator /(const Complex& lhs, const Complex& rhs);
+Complex operator+(const Complex& lhs, const Complex& rhs);
+Complex operator+(const Complex& lhs, const double rhs);
+Complex operator+(const double lhs, const Complex& rhs);
+
+Complex operator-(const Complex& lhs, const Complex& rhs);
+Complex operator-(const Complex& lhs, const double rhs);
+Complex operator-(const double lhs, const Complex& rhs);
+
+Complex operator*(const Complex& lhs, const Complex& rhs);
+Complex operator*(const Complex& lhs, const double rhs);
+Complex operator*(const double lhs, const Complex& rhs);
+
+Complex operator/(const Complex& lhs, const Complex& rhs);
+Complex operator/(const Complex& lhs, const double rhs);
+Complex operator/(const double lhs, const Complex& rhs);
 bool operator==(const Complex& lhs, const Complex& rhs);
 bool operator!=(const Complex& lhs, const Complex& rhs);
 std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs);

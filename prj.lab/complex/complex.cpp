@@ -34,10 +34,26 @@ Complex operator +(const Complex& lhs, const Complex& rhs) {
 	return sum;
 }
 
+Complex operator+(const Complex& lhs, const double rhs) {
+	return lhs + Complex(rhs);
+}
+
+Complex operator+(const double lhs, const Complex& rhs) {
+	return Complex(lhs) + rhs;
+}
+
 Complex operator -(const Complex& lhs, const Complex& rhs) {
 	Complex sub(lhs);
 	sub -= rhs;
 	return sub;
+}
+
+Complex operator-(const Complex& lhs, const double rhs) {
+	return lhs - Complex(rhs);
+}
+
+Complex operator-(const double lhs, const Complex& rhs) {
+	return Complex(lhs) - rhs;
 }
 
 Complex operator *(const Complex& lhs, const Complex& rhs) {
@@ -46,10 +62,26 @@ Complex operator *(const Complex& lhs, const Complex& rhs) {
 	return mul;
 }
 
+Complex operator*(const Complex& lhs, const double rhs) {
+	return lhs * Complex(rhs);
+}
+
+Complex operator*(const double lhs, const Complex& rhs) {
+	return Complex(lhs) * rhs;
+}
+
 Complex operator /(const Complex& lhs, const Complex& rhs) {
 	Complex dev(lhs);
 	dev /= rhs;
 	return dev;
+}
+
+Complex operator/(const Complex& lhs, const double rhs) {
+	return lhs / Complex(rhs);
+}
+
+Complex operator/(const double lhs, const Complex& rhs) {
+	return Complex(lhs) / rhs;
 }
 
 
