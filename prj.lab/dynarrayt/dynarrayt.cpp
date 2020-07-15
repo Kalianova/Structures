@@ -1,48 +1,53 @@
-#include <dynarray/dynarray.h>
+#include <dynarrayt/dynarrayt.h>
 #include <exception>
 #include <iostream>
 #include <algorithm>
 
-DynArray::DynArray(const DynArray& arr)
+template<typename T>
+DynArrayT<T>::DynArrayT(const DynArrayT& arr)
 	:capacity_(arr.capacity_),
 	size_(arr.size_)
 {
-	data_ = new float[capacity_];
+	data_ = new T[capacity_];
 	for (std::ptrdiff_t i = 0; i < size_; i++)
 	{
 		data_[i] = arr.data_[i];
 	}
 }
 
-DynArray::DynArray(const std::ptrdiff_t size)
+template<typename T>
+DynArrayT<T>::DynArrayT(const std::ptrdiff_t size)
 	:capacity_(size),
 	size_(size)
 {
 	if (size < 0) {
 		throw std::invalid_argument("Size is less than 0");
 	}
-	data_ = new float[size];
+	data_ = new T[size];
 	for (std::ptrdiff_t i = 0; i < size_; i++){
 		data_[i] = 0;
 	}
 }
 
-
-float& DynArray::operator[](const std::ptrdiff_t i) {
+template<typename T>
+T& DynArrayT<T>::operator[](const std::ptrdiff_t i) {
 	if (i < 0 || i>=size_) {
 		throw std::invalid_argument("Invalid i");
 	}
 	return data_[i];
 }
 
-const float& DynArray::operator[](const std::ptrdiff_t i) const {
+template<typename T>
+const T& DynArrayT<T>::operator[](const std::ptrdiff_t i) const {
 	if (i < 0 || i>=size_) {
 		throw std::invalid_argument("Invalid i");
 	}
 	return data_[i];
 }
 
-void DynArray::resize(const std::ptrdiff_t size) {
+
+template<typename T>
+void DynArrayT<T>::resize(const std::ptrdiff_t size) {
 	if (size < 0) {
 		throw std::invalid_argument("Size is less than 0");
 	}
@@ -51,7 +56,7 @@ void DynArray::resize(const std::ptrdiff_t size) {
 			size_ = size;
 		}
 		else {
-			DynArray newArray = DynArray(size);
+			DynArrayT newArray = DynArrayT(size);
 			for (std::ptrdiff_t i = 0; i < size_; i++) {
 				newArray[i] = data_[i];
 			}
@@ -60,10 +65,12 @@ void DynArray::resize(const std::ptrdiff_t size) {
 	}
 }
 
-DynArray& DynArray::operator=(const DynArray& rhs) {
+
+template<typename T>
+DynArrayT<T>& DynArrayT<T>::operator=(const DynArrayT& rhs) {
 	if (this != &rhs) {
 		delete[] data_;
-		data_ = new float[rhs.size_];
+		data_ = new T[rhs.size_];
 		for (std::ptrdiff_t i = 0; i < rhs.size_; i++) {
 			data_[i] = rhs.data_[i];
 		}

@@ -1,15 +1,15 @@
-#ifndef STACK_LIST_H_2019
-#define STACK_LIST_H_2019
-
 #pragma once
-#include<memory>
+#ifndef QUEUE_ARRAY_2019
+#define QUEUEA_ARRAY_2019
 
-class StackL {
+#include <cstddef>
+
+class QueueL {
 public:
-	StackL() = default;
-	StackL(const StackL&);
-	StackL& operator=(const StackL&);
-	~StackL();
+	QueueL() = default;
+	QueueL(const QueueL&);
+	QueueL& operator=(const QueueL&);
+	~QueueL();
 	void push(const float value);
 	void pop();
 	float& top();
@@ -22,6 +22,7 @@ private:
 		Node(const float Value = 0.0) :val(Value) {}
 		Node(Node* Next, const float Value = 0.0) :val(Value), next(Next) {}
 	};
+	Node* tail_{ nullptr };
 	Node* head_{ nullptr };
 };
 

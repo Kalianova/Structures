@@ -24,19 +24,56 @@ LongInt::~LongInt() {
 }
 
 bool LongInt::operator == (const LongInt& rhs) {
-	
+	if (data_.size() == rhs.data_.size()) {
+		for (size_t i = 0; i < data_.size; i++) {
+			if (data_[i] != rhs.data_[i])
+				return false;
+		}
+		return true;
+	}
+	return false;
 }
 bool LongInt::operator != (const LongInt& rhs) {
 	return !(*this == rhs);
 }
 bool LongInt::operator < (const LongInt& rhs) {
-
+	if (data_.size() == rhs.data_.size()) {
+		for (size_t i = 0; i < data_.size; i++) {
+			if (data_[i] > rhs.data_[i])
+				return false;
+		}
+		if (data_[data_.size()] == rhs.data_[data_.size()]) {
+			return false;
+		}
+		return true;
+	}
+	if (data_.size() < rhs.data_.size()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 bool LongInt::operator <= (const LongInt& rhs) {
 	return !(*this > rhs);
 }
 bool LongInt::operator > (const LongInt& rhs) {
-
+	if (data_.size() == rhs.data_.size()) {
+		for (size_t i = 0; i < data_.size; i++) {
+			if (data_[i] < rhs.data_[i])
+				return false;
+		}
+		if (data_[data_.size()] == rhs.data_[data_.size()]) {
+			return false;
+		}
+		return true;
+	}
+	if (data_.size() > rhs.data_.size()) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 bool LongInt::operator >= (const LongInt& rhs) {
 	return !(*this < rhs);
